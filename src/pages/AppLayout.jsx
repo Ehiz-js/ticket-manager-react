@@ -9,6 +9,9 @@ function AppLayout() {
 			<NavBar />
 			<Outlet />
 			<Footer />
+
+			<div className={styles.circle1}></div>
+			<div className={styles.circle2}></div>
 		</div>
 	);
 }

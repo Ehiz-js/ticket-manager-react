@@ -16,7 +16,11 @@ function Login() {
 			setErrors({ success: `Login successful! Welcome back!` });
 			setEmail("");
 			setPassword("");
-			navigate("/app", { replace: true });
+			const delay = setTimeout(() => {
+				navigate("/app", { replace: true });
+			}, 1000);
+
+			return () => clearTimeout(delay);
 		}
 	}, [isAuthenticated, navigate]);
 

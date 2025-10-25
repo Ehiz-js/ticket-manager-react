@@ -7,9 +7,9 @@ import Signup from "./pages/Signup";
 import PageNotFound from "./pages/PageNotFound";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./pages/ProtectedRoute";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./components/Dashboard";
 import AppLayout from "./pages/AppLayout";
-import TicketList from "./pages/TicketList";
+import TicketManagerPage from "./components/TicketManagerPage";
 
 function App() {
 	return (
@@ -30,7 +30,7 @@ function App() {
 					>
 						<Route index element={<Navigate replace to={"dashboard"} />} />
 						<Route path="dashboard" element={<Dashboard />} />
-						<Route path="tickets" element={<TicketList />} />
+						<Route path="tickets" element={<TicketManagerPage />} />
 					</Route>
 					<Route path="*" element={<PageNotFound />} />
 				</Routes>

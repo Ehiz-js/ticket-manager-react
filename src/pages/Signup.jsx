@@ -21,7 +21,11 @@ function Signup() {
 			setEmail("");
 			setPassword("");
 			setConfirmPassword("");
-			navigate("/app", { replace: true });
+			const delay = setTimeout(() => {
+				navigate("/app", { replace: true });
+			}, 1000);
+
+			return () => clearTimeout(delay);
 		}
 	}, [isAuthenticated]);
 

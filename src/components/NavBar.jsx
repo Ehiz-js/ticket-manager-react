@@ -21,7 +21,6 @@ function NavBar() {
 				<img src="/tickit-logo.svg" alt="Tickit logo" />
 			</div>
 
-			{/* Hamburger visible only on mobile */}
 			<div className={styles.hamburger} onClick={() => setMenuOpen(true)}>
 				<div></div>
 				<div></div>
@@ -29,7 +28,6 @@ function NavBar() {
 			</div>
 
 			<ul className={`${styles.navLinks} ${menuOpen ? styles.open : ""}`}>
-				{/* X inside menu */}
 				<button className={styles.closeBtn} onClick={() => setMenuOpen(false)}>
 					&times;
 				</button>

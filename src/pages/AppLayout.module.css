@@ -1,6 +1,67 @@
 .app {
 	height: 100vh;
-	padding: 2.4rem;
 	overscroll-behavior-y: none;
 	position: relative;
+}
+.circle1 {
+	position: absolute;
+	width: 500px;
+	height: 390px;
+	left: -20%;
+	top: 60%;
+	background-color: transparent;
+	border: 8px solid var(--color-accent);
+	border-radius: 50%;
+	z-index: -1;
+	filter: blur(8px);
+	pointer-events: none;
+}
+
+.circle2 {
+	position: absolute;
+	width: 500px;
+	height: 390px;
+	right: -10%;
+	bottom: 70%;
+	background-color: transparent;
+	border: 8px solid var(--color-accent);
+	border-radius: 50%;
+	z-index: -1;
+	filter: blur(8px);
+	pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+	.circle1 {
+		width: 380px;
+		height: 300px;
+		border-width: 6px;
+		top: 80%;
+		left: -20%;
+	}
+	.circle2 {
+		width: 380px;
+		height: 300px;
+		border-width: 6px;
+		right: -25%;
+		bottom: 85%;
+	}
+}
+
+@media (max-width: 768px) {
+	.circle1 {
+		width: 280px;
+		height: 220px;
+		left: -35%;
+		top: 90%;
+		border-width: 4px;
+	}
+
+	.circle2 {
+		width: 280px;
+		height: 220px;
+		right: -35%;
+		bottom: 75%;
+		border-width: 4px;
+	}
 }

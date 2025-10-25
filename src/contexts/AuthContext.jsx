@@ -1,9 +1,12 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useEffect } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
 const AuthContext = createContext();
 
-const initialState = { user: null, isAuthenticated: false };
+const initialState = {
+	user: null,
+	isAuthenticated: false,
+};
 
 function reducer(state, action) {
 	switch (action.type) {
@@ -31,11 +34,21 @@ function reducer(state, action) {
 }
 
 function AuthProvider({ children }) {
+	const [users, setUsers] = useLocalStorageState([], "ticketapp_session");
 	const [{ user, isAuthenticated }, dispatch] = useReducer(
 		reducer,
-		initialState
+		initialState,
+		() => {
+			if (users.length > 0) {
+				return {
+					user: users[0],
+					isAuthenticated: true,
+				};
+			} else {
+				return { user: null, isAuthenticated: false };
+			}
+		}
 	);
-	const [users, setUsers] = useLocalStorageState([], "ticketapp_session");
 
 	function login(email, password) {
 		const user = users.find(
@@ -56,9 +69,12 @@ function AuthProvider({ children }) {
 		if (userExists) {
 			return "User already exists! Please login.";
 		}
-		const newUser = { name, email, password };
+		const newUser = { name, email, password, tickets: [] };
 		setUsers([...currentUsers, newUser]);
-		dispatch({ type: "signup", payload: newUser });
+		dispatch({
+			type: "signup",
+			payload: newUser,
+		});
 		return "Signup successful!";
 	}
 
@@ -66,9 +82,64 @@ function AuthProvider({ children }) {
 		dispatch({ type: "logout" });
 	}
 
+	function addTicket(newTicket) {
+		const updatedUser = {
+			...user,
+			tickets: [...user.tickets, newTicket],
+		};
+		dispatch({ type: "login", payload: updatedUser });
+
+		const updatedUsers = users.map((user) =>
+			user.email === updatedUser.email ? updatedUser : user
+		);
+		setUsers(updatedUsers);
+	}
+	function updateTicket(updatedTicket) {
+		const updatedTickets = user.tickets.map((ticket) =>
+			ticket.id === updatedTicket.id ? updatedTicket : ticket
+		);
+
+		const updatedUser = {
+			...user,
+			tickets: updatedTickets,
+		};
+
+		dispatch({ type: "login", payload: updatedUser });
+
+		const updatedUsers = users.map((u) =>
+			u.email === updatedUser.email ? updatedUser : u
+		);
+		setUsers(updatedUsers);
+	}
+
+	function deleteTicket(ticket) {
+		const updatedTickets = user.tickets.filter((t) => t.id !== ticket.id);
+
+		const updatedUser = {
+			...user,
+			tickets: updatedTickets,
+		};
+
+		dispatch({ type: "login", payload: updatedUser });
+
+		const updatedUsers = users.map((u) =>
+			u.email === updatedUser.email ? updatedUser : u
+		);
+		setUsers(updatedUsers);
+	}
+
 	return (
 		<AuthContext.Provider
-			value={{ user, isAuthenticated, login, signup, logout }}
+			value={{
+				user,
+				isAuthenticated,
+				login,
+				signup,
+				logout,
+				addTicket,
+				updateTicket,
+				deleteTicket,
+			}}
 		>
 			{children}
 		</AuthContext.Provider>

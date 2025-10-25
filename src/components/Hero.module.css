@@ -139,6 +139,8 @@ h1 span {
 	background-color: transparent;
 	border: 8px solid var(--color-accent);
 	border-radius: 50%;
+	filter: blur(8px);
+	pointer-events: none;
 }
 
 .circle2 {
@@ -150,6 +152,8 @@ h1 span {
 	background-color: transparent;
 	border: 8px solid var(--color-accent);
 	border-radius: 50%;
+	filter: blur(8px);
+	pointer-events: none;
 }
 
 /* ===== Responsive Adjustments ===== */
