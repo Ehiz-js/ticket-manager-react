@@ -11,7 +11,6 @@ function AppLayout() {
 			<Footer />
 
 			<div className={styles.circle1}></div>
-			<div className={styles.circle2}></div>
 		</div>
 	);
 }
